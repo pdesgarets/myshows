@@ -1,0 +1,9 @@
+---
+- name: Install PHP5-FPM
+  sudo: yes
+  apt:  package=php5-fpm state=latest
+
+- name: set Env variables
+  sudo: yes
+  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf line="env[{{ item.key }}] = {{ item.value }}"
+  with_items: "{{ php_env }}"
