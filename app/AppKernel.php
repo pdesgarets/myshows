@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
         }
 
         return $bundles;
@@ -35,7 +36,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        if (getenv('VAGRANT') === 'true') {
+        if (getenv('SYMFONY__VAGRANT') === '1') {
             return '/tmp/symfony/cache/'.$this->getEnvironment();
         }
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
@@ -43,7 +44,7 @@ class AppKernel extends Kernel
 
     public function getLogDir()
     {
-        if (getenv('VAGRANT') === 'true') {
+        if (getenv('SYMFONY__VAGRANT') === '1') {
             return '/tmp/symfony/logs/';
         }
         return dirname(__DIR__).'/var/logs';

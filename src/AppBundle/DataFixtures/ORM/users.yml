@@ -1,0 +1,5 @@
+AppBundle\Entity\User:
+  users_{1..10}:
+    username: user_<current()>
+    plainPassword: password
+    roles: [ROLE_USER]
