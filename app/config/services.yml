@@ -4,7 +4,7 @@ parameters:
 #    parameter_name: value
 
 services:
-    passwordListener:
+    password_listener:
         class: AppBundle\EventListener\PasswordEncoderListener
         arguments: ["@security.password_encoder"]
         tags:

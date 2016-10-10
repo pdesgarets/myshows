@@ -1,14 +1,20 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
+    "name": "awesome/seriestimeline",
+    "license": "proprietary",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-4": { "": "src/" },
-        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
     },
     "autoload-dev": {
-        "psr-4": { "Tests\\": "tests/" }
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "require": {
         "php": ">=5.5.9",
@@ -22,8 +28,10 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "guzzlehttp/guzzle": "^6.2",
-        "eightpoints/guzzle-bundle": "^4.5"
+        "symfony/assetic-bundle": "^2.8",
+        "leafo/scssphp": "^0.6.6",
+        "patchwork/jsqueeze": "^2.0",
+        "lifo/typeahead-bundle": "^2.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -61,9 +69,6 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "3.1-dev"
         }
     }
 }
