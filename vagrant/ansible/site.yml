@@ -31,6 +31,7 @@
     nodejs:
       version: _5.x
       packages: [casperjs, phantomjs, bower, gulp]
+    xdebug_key: ~
   roles:
     - init
     - nginx
