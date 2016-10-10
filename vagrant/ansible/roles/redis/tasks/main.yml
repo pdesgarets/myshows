@@ -1,9 +1,9 @@
 ---
 - name: Install redis
-  sudo: yes
+  become: true
   apt:  pkg=redis-server state=latest
 
 - name: Listen on all interfaces
-  sudo: yes
+  become: true
   lineinfile: dest=/etc/redis/redis.conf regexp="^bind" "line=#bind"
   notify: restart redis

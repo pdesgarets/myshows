@@ -1,9 +1,9 @@
 ---
 - name: Install MongoDB
-  sudo: yes
+  become: true
   apt:  pkg=mongodb state=latest
 
 - name: Allow access to MongoDB from anywhere
-  sudo: yes
+  become: true
   lineinfile: dest=/etc/mongodb.conf regexp="^bind_ip" line="#bind_ip = 127.0.0.1"
   notify: restart mongodb

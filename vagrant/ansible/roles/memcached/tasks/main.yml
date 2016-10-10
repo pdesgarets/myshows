@@ -1,4 +1,4 @@
 ---
 - name: Install Memcached
-  sudo: yes
+  become: true
   apt:  pkg=memcached state=latest

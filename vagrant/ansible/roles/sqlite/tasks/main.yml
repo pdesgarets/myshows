@@ -1,4 +1,4 @@
 ---
 - name: Install SQLite
-  sudo: yes
+  become: true
   apt:  pkg=sqlite3 state=latest
