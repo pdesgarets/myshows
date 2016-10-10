@@ -9,6 +9,9 @@ services:
         arguments: ["@security.password_encoder"]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    myshows.rest_api_caller:
+        class: AppBundle\API\RESTAPICaller
+        arguments: ["@guzzle.client.api_tvmaze"]
+    myshows.fetcher.shows:
+        class: AppBundle\Fetcher\ShowsFetcher
+        arguments: ["@myshows.rest_api_caller"]
