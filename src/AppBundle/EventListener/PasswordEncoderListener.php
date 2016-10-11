@@ -22,7 +22,7 @@ class PasswordEncoderListener
     {
         $user = $args->getEntity();
 
-        if (!$user instanceof User) {
+        if (!$user instanceof User || !$user->getPlainPassword()) {
             return;
         }
 

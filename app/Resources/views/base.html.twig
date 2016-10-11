@@ -14,16 +14,10 @@
    {% block javascripts %}
         {% javascripts filter="?jsqueeze"
             '../app/Resources/public/js/jquery.js'
-            '../app/Resources/public/js/jquery.tablesorter.min.js'
-            '../app/Resources/public/js/bootstrap.min.js'
-            '../app/Resources/public/js/dropzone.js'
-            '../app/Resources/public/js/validator.min.js'
-            '../app/Resources/public/js/typeahead.js'
+            '../app/Resources/public/js/*.js'
             '@lifo_typeahead_js'
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-    {% endblock %}
-    {% block javascript %}
     {% endblock %}
 </html>
