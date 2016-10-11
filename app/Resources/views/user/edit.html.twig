@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User edit</h1> <p class="pull-right"><a href="{{ path('user_index') }}">Back to the list</a></p>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" class="btn btn-default" value="Edit" />
+    {{ form_end(edit_form) }}
+    <br />
+    {{ form_start(delete_form, {'attr': {'class': 'pull-right'}}) }}
+        <input type="submit" class="btn btn-danger" value="Delete">
+    {{ form_end(delete_form) }}
+{% endblock %}

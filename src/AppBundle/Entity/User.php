@@ -35,7 +35,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"new"})
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -111,9 +111,13 @@ class User implements UserInterface
     {
         return $this->password;
     }
-    
+
     public function eraseCredentials()
     {
 
+    }
+
+    public function getId() {
+        return $this->id;
     }
 }

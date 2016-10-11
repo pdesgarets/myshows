@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User</h1><p class="pull-right"><a href="{{ path('user_index') }}">Back to the list</a></p>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a></p>
+    {{ form_start(delete_form) }}
+    <input type="submit"  class="btn btn-danger" value="Delete">
+    {{ form_end(delete_form) }}
+{% endblock %}

@@ -4,3 +4,13 @@ AppBundle\Entity\User:
     plainPassword: password
     email: <email()>
     roles: [ROLE_USER]
+  admin:
+    username: admin
+    plainPassword: password
+    email: <email()>
+    roles: [ROLE_ADMIN]
+  god:
+      username: god
+      plainPassword: password
+      email: <email()>
+      roles: [ROLE_GOD]

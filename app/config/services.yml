@@ -15,3 +15,8 @@ services:
     myshows.fetcher.shows:
         class: AppBundle\Fetcher\ShowsFetcher
         arguments: ["@myshows.rest_api_caller"]
+    form.type.user:
+        class: AppBundle\Form\UserType
+        arguments: ["@security.authorization_checker"]
+        tags:
+            - { name: form.type, alias: user_type }
