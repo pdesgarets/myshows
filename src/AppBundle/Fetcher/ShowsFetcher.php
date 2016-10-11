@@ -3,6 +3,7 @@
 namespace AppBundle\Fetcher;
 
 use AppBundle\API\RESTAPICaller;
+use AppBundle\Entity\TVShow;
 
 class ShowsFetcher
 {
@@ -21,17 +22,24 @@ class ShowsFetcher
     }
 
     /**
-     * @return string
+     * used to retrieve a list of shows from the api with a name matching the query
+     *
+     * @param string $query
+     *
+     * @return array
+     *
      */
-    public function getShows()
+    public function getShows($query)
     {
-        // stuff
-        $shows = $this->RESTAPICaller->makeGetRequest('/shows');
+        //call api to get shows list
+        $shows = $this->RESTAPICaller->makeGetRequest('/search/shows?q=' . $query);
 
-        //other stuff
+        //format result into tvshow entities
+        foreach($shows as $show){
+            $showsEntities[] = new TVShow($show->show->id, $show->show->name, strip_tags($show->show->summary), $show->show->image->original);
+        }
 
-        return $shows;
+        return $showsEntities;
     }
 
-    
 }

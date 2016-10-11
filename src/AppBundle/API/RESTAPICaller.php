@@ -20,7 +20,7 @@ class RESTAPICaller
 
     public function makeGetRequest($url)
     {
-        $shows = json_decode($this->apiclient->get('/schedule?country=US&date=2014-01-12')->getBody()->getContents());
-        return $shows;
+        $response = json_decode($this->apiclient->get($url)->getBody()->getContents());
+        return $response;
     }
 }
