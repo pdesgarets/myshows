@@ -7,3 +7,13 @@
   become: true
   lineinfile: dest=/etc/php5/fpm/pool.d/www.conf line="env[{{ item.key }}] = {{ item.value }}"
   with_items: "{{ php_env }}"
+
+- name: Change php-fpm user
+  become: true
+  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^user =' line="user = {{ ansible_ssh_user }}"
+  notify: restart nginx
+
+- name: Change php-fpm group
+  become: true
+  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^group =' line="group = {{ ansible_ssh_user }}"
+  notify: restart nginx

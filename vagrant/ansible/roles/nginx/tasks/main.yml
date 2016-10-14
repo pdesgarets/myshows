@@ -10,13 +10,3 @@
     become: true
     template: src=default.tpl dest=/etc/nginx/sites-available/default
     notify: restart nginx
-    
-  - name: Change nginx user
-    become: true
-    lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^user =' line="user = {{ ansible_ssh_user }}"
-    notify: restart nginx
-    
-  - name: Change nginx group
-    become: true
-    lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^group =' line="group = {{ ansible_ssh_user }}"
-    notify: restart nginx
