@@ -4,6 +4,7 @@ namespace AppBundle\Fetcher;
 
 use AppBundle\API\RESTAPICaller;
 use AppBundle\Entity\TVShow;
+use GuzzleHttp\Exception\ClientException;
 
 class ShowsFetcher
 {
@@ -16,6 +17,7 @@ class ShowsFetcher
 
     /**
      * @param RESTAPICaller $RESTAPICaller
+     * @param string $placeholderUrl
      */
     public function __construct(RESTAPICaller $RESTAPICaller, $placeholderUrl)
     {
@@ -41,11 +43,41 @@ class ShowsFetcher
         } else {
             //format result into tvshow entities
             foreach ($shows as $show) {
-                $showsEntities[] = new TVShow($show->show->id, $show->show->name, strip_tags($show->show->summary), $show->show->image ? $show->show->image->original : $this->placeholderUrl);
+                $showsEntities[] = $this->buildShow($show->show);
             }
 
             return $showsEntities;
         }
+    }
+
+    /**
+     * Used to retrieve a unique show
+     * @param $id
+     * @return TVShow
+     */
+    public function getShow($id)
+    {
+        try {
+            $show = $this->RESTAPICaller->makeGetRequest('/shows/' . $id);
+        } catch (ClientException $e) {
+            return null;
+        }
+
+        return $this->buildShow($show);
+    }
+
+    /**
+     * @param array $objectShow from the API
+     * @return TVShow
+     */
+    private function buildShow($objectShow)
+    {
+        return new TVShow($objectShow->id, $objectShow->name, strip_tags($objectShow->summary), $objectShow->image ? $objectShow->image->original : $this->placeholderUrl);
+    }
+
+    public function getNextEpisodes($id)
+    {
+        return $this->RESTAPICaller->makeGetRequest('/shows/' . $id . '/episodes');
     }
 
 }

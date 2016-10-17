@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{ show.image }}" class="img-thumbnail" alt="{{ show.name }}">
+            </div>
+            <div class="col-md-9">
+                <h2>{{ show.name }}</h2>
+                <div class="summary">{{ show.summary }}</div>
+                {% if isFavorite %}
+                <a class="btn btn-danger" href="{{ path('tv_show_remove_from_fav', {id: show.id}) }}"><span class="glyphicon glyphicon-minus"></span> Retirer de mes séries favorites</a>
+                {% else %}
+                <a class="btn btn-success" href="{{ path('tv_show_add_to_fav', {id: show.id}) }}"><span class="glyphicon glyphicon-plus"></span> Ajouter à mes séries favorites</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <h3>Prochains épisodes :</h3>
+        </div>
+    </div>
+{% endblock %}

@@ -15,6 +15,9 @@ body{
 	background:$background;
 }
 
+.container-fluid {
+    margin-top: 20px;
+}
 
 .form-signin {
   max-width: 400px;
@@ -213,7 +216,7 @@ h3 a:hover {
     .image {
         position:relative;
         display:inline-block;
-        button {
+        a {
             position:absolute;
             bottom: 1rem;
             border-radius: 20px;
@@ -239,4 +242,8 @@ h3 a:hover {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
+}
+
+.summary {
+    margin-bottom: 20px;
 }
