@@ -210,24 +210,27 @@ h3 a:hover {
         height: 25rem;
     }
 
-    button {
-        position:absolute;
-        bottom: 5rem;
-        border-radius: 20px;
-        border: none;
-        right: 8rem;
-        width:40px;
-        height:40px;
-        background-color: $brand-primary;
-        opacity: 0.7;
-
-        span {
-            position: absolute;
-            left: 9px;
-            top: -8px;
-            font-size: 2.5em;
-            opacity: 1;
-            color: white;
+    .image {
+        position:relative;
+        display:inline-block;
+        button {
+            position:absolute;
+            bottom: 1rem;
+            border-radius: 20px;
+            border: none;
+            right: 1rem;
+            width:40px;
+            height:40px;
+            background-color: $brand-primary;
+            opacity: 0.7;
+            .glyphicon {
+                position: absolute;
+                left: 9px;
+                top: 7px;
+                font-size: 1.8em;
+                opacity: 1;
+                color: white;
+            }
         }
     }
 }
