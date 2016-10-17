@@ -90,6 +90,13 @@ body{
             background-color: $bgHighlight; }
         .icon-bar {
             background-color: $colDefault; }}}
+
+@media (max-width: $grid-float-breakpoint) {
+    .navbar-form-no-admin {
+        margin-top: -9px;
+        border-top: none;
+    }
+}
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: $colDefault;
