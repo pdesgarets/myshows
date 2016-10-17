@@ -13,6 +13,8 @@
                         <h5>{{ show.name }}</h5>
                     </div>
                 </div>
+            {% else %}
+                <h4>Aucune série correspondant à "{{ query }}"</h4>
             {% endfor %}
         </div>
     </div>

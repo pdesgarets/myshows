@@ -19,3 +19,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     captcha_id: ~
     captcha_secret: ~
+    placeholder_url: https://placeholdit.imgix.net/~text?txtsize=33&txt=No%20image&w=300&h=422

@@ -12,13 +12,15 @@ class ShowsFetcher
      * @var RESTAPICaller
      */
     private $RESTAPICaller;
+    private $placeholderUrl;
 
     /**
      * @param RESTAPICaller $RESTAPICaller
      */
-    public function __construct(RESTAPICaller $RESTAPICaller)
+    public function __construct(RESTAPICaller $RESTAPICaller, $placeholderUrl)
     {
         $this->RESTAPICaller = $RESTAPICaller;
+        $this->placeholderUrl = $placeholderUrl;
     }
 
     /**
@@ -34,12 +36,16 @@ class ShowsFetcher
         //call api to get shows list
         $shows = $this->RESTAPICaller->makeGetRequest('/search/shows?q=' . $query);
 
-        //format result into tvshow entities
-        foreach($shows as $show){
-            $showsEntities[] = new TVShow($show->show->id, $show->show->name, strip_tags($show->show->summary), $show->show->image->original);
-        }
+        if (empty($shows)) {
+            return array();
+        } else {
+            //format result into tvshow entities
+            foreach ($shows as $show) {
+                $showsEntities[] = new TVShow($show->show->id, $show->show->name, strip_tags($show->show->summary), $show->show->image ? $show->show->image->original : $this->placeholderUrl);
+            }
 
-        return $showsEntities;
+            return $showsEntities;
+        }
     }
 
 }

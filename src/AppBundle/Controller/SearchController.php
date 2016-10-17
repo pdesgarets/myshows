@@ -24,7 +24,9 @@ class SearchController extends Controller
         $query = $request->get('q');
         $shows = $this->get('myshows.fetcher.shows')->getShows($query);
 
-        return array('shows' => $shows);
+        return array(
+            'shows' => $shows,
+            'query' => $query);
     }
 
 }
