@@ -22,19 +22,16 @@ class TVShow
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -54,6 +55,21 @@ class User implements UserInterface
      * @ORM\Column(name="roles", type="array")
      */
     private $roles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\TVShow")
+     * @ORM\JoinTable(name="user_shows",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="show_id", referencedColumnName="id")}
+     * )
+     */
+    private $shows;
+
+    public function __construct()
+    {
+        $this->shows = new ArrayCollection();
+    }
+
 
     // other properties and methods
 
@@ -119,5 +135,31 @@ class User implements UserInterface
 
     public function getId() {
         return $this->id;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getShows()
+    {
+        return $this->shows;
+    }
+
+    /**
+     * @param mixed $shows
+     */
+    public function setShows($shows)
+    {
+        $this->shows = $shows;
+    }
+
+
+    public function addShow(TVShow $show) {
+        $this->shows->add($show);
+    }
+
+    public function removeShow(TVShow $show) {
+        $this->shows->removeElement($show);
     }
 }
