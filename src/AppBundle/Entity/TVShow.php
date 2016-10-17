@@ -2,28 +2,39 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * TVShow
+ * @ORM\Entity
+ * @UniqueEntity(fields="id", message="This ID already exists")
  */
+
 class TVShow
 {
     /**
      * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer", unique=true)
      */
     private $id;
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for show in shows %}
+                <div class="col-sm-4">
+                    <div id="show-card">
+                        <div class="image">
+                            <img src="{{ show.image }}" class="img-thumbnail" alt="{{ show.name }}">
+                        </div>
+                        <h5>{{ show.name }}</h5>
+                        <button class="btn btn-default"><span class="glyphicon-plus-sign"></span></button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
