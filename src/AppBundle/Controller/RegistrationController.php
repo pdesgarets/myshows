@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,6 +13,7 @@ class RegistrationController extends Controller
 {
     /**
      * @Route("/register", name="user_registration")
+     * @Template("registration/register.html.twig")
      */
     public function registerAction(Request $request)
     {
@@ -37,9 +39,6 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render(
-            'registration/register.html.twig',
-            array('form' => $form->createView())
-        );
+        return array('form' => $form->createView());
     }
 }

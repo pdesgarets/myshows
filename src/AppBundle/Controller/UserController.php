@@ -42,6 +42,7 @@ class UserController extends Controller
      *
      * @Route("/new", name="user_new")
      * @Method({"GET", "POST"})
+     * @Template("user/new.html.twig")
      */
     public function newAction(Request $request)
     {
@@ -57,10 +58,10 @@ class UserController extends Controller
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
-        return $this->render('user/new.html.twig', array(
+        return array(
             'user' => $user,
             'form' => $form->createView(),
-        ));
+        );
     }
 
     /**
@@ -68,15 +69,16 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="user_show")
      * @Method("GET")
+     * @Template("user/show.html.twig")
      */
     public function showAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
 
-        return $this->render('user/show.html.twig', array(
+        return array(
             'user' => $user,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
