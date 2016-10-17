@@ -20,3 +20,6 @@ services:
         arguments: ["@security.authorization_checker"]
         tags:
             - { name: form.type, alias: user_type }
+    myshows.captcha_validator:
+        class: AppBundle\Form\CaptchaValidator
+        arguments: ["@session", "%captcha_secret%"]
