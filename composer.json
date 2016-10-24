@@ -34,7 +34,8 @@
         "lifo/typeahead-bundle": "^2.4",
         "google/recaptcha": "~1.1",
         "phpunit/phpunit": "^4.8",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4",
+        "eightpoints/guzzle-bundle": "^4.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
