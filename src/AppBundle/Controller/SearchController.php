@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\TVShow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,12 +24,17 @@ class SearchController extends Controller
     {
         $query = $request->get('q');
         $shows = $this->get('myshows.fetcher.shows')->getShows($query);
-
-        $myShows = $this->getUser()->getShows();
         $favoriteIds = array();
 
-        foreach ($myShows as $show){
-            $favoriteIds[] = $show->getId();
+        $myShows = $this->getUser()->getShows();
+        $myShowsId = array();
+        /** @var TVShow $show */
+        foreach ($myShows as $show) {
+            $myShowsId[] = $show->getId();
+        }
+        foreach ($shows as $show) {
+            $id = $show->getId();
+            $favoriteIds[$id] = (in_array($id, $myShowsId)) ? true : false;
         }
 
         return array(
