@@ -27,11 +27,11 @@ class TVShowController extends Controller
         $show = $this->getShow($id);
         /** @var Collection $favoriteShows */
         $favoriteShows = $this->getUser()->getShows();
-        $nextEpisodes = $this->get('myshows.fetcher.shows')->getNextEpisodes($id);
+        $episodes = $this->get('myshows.fetcher.shows')->getEpisodes($id);
 
         return array(
             'show' => $show,
-            'nextEpisodes' => $nextEpisodes,
+            'episodes' => $episodes,
             'isFavorite' => $favoriteShows->contains($show)
         );
     }

@@ -17,7 +17,35 @@
             </div>
         </div>
         <div class="row">
-            <h3>Prochains épisodes :</h3>
+            <h3>Episodes :</h3>
+            <div class="panel-group" id="seasons" role="tablist" aria-multiselectable="true">
+                {% set curSeason = false %}
+                {% for episode in episodes %}
+                    {% if episode.season != curSeason %}
+                        {% if curSeason != false %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% set curSeason = episode.season %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingSeason{{ curSeason }}">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#seasons" href="#season{{ curSeason }}">Season {{ curSeason }}</a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse season" id="season{{ curSeason }}">
+                                <div class="panel-body">
+                                    <ul>
+                    {% endif %}
+                                        <li><a href="{{ episode.url }}" target="_blank"> S{{ episode.season }}E{{ episode.number }} - {{ episode.name }}</a></li>
+                                        <p> <span> Aired <b>{{ episode.airstamp|time_diff }}</b></span></p>
+                                        {{ episode.summary|raw }}
+                {% endfor %}
+                {{ episodes ? '</ul></div></div>' : '<p>No episode :(</p>' }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
