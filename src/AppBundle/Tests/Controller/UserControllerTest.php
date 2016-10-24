@@ -6,10 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
-    /*
+    
     public function testCompleteScenario()
     {
-        // Create a new client to browse the application
+        /*// Create a new client to browse the application
         $client = static::createClient();
 
         // Create a new entry in the database
@@ -48,8 +48,7 @@ class UserControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());*/
     }
 
-    */
 }

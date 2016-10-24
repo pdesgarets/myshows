@@ -5,7 +5,7 @@
         <div class="row">
             {% for show in shows %}
                 <div class="col-sm-4">
-                    <div id="show-card">
+                    <div class="show-card">
                         <div class="image">
                             <img src="{{ show.image }}" class="img-thumbnail" alt="{{ show.name }}">
                             {% if show.id in favShowsId %}
