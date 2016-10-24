@@ -12,6 +12,8 @@
                     <h5><a href="{{ path('tv_show_display', {id: show.id}) }}">{{ show.name }}</a></h5>
                 </div>
             </div>
+            {% else %}
+                Pas encore de série. Utilisez la recherche pour trouver votre série préférée !
             {% endfor %}
         </div>
     </div>
