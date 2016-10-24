@@ -251,3 +251,7 @@ h3 a:hover {
 .summary {
     margin-bottom: 20px;
 }
+
+.alert:not(:last-of-type) {
+    margin-bottom: 4px;
+}
