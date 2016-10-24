@@ -226,6 +226,10 @@ h3 a:hover {
             height:40px;
             background-color: $brand-primary;
             opacity: 0.7;
+
+            &.tick {
+                background-color: green;
+            }
             .glyphicon {
                 position: absolute;
                 left: 9px;

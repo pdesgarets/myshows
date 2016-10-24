@@ -8,7 +8,11 @@
                     <div id="show-card">
                         <div class="image">
                             <img src="{{ show.image }}" class="img-thumbnail" alt="{{ show.name }}">
-                            <a href="{{ path('tv_show_add_to_fav', {id: show.id}) }}"><span class="glyphicon glyphicon-plus"></span></a>
+                            {% if show.id in favShowsId %}
+                                <a class="tick"><span class="glyphicon glyphicon-ok"></span></a>
+                            {% else %}
+                                <a href="{{ path('tv_show_add_to_fav', {id: show.id}) }}"><span class="glyphicon glyphicon-plus"></span></a>
+                            {% endif %}
                         </div>
                         <h5><a href="{{ path('tv_show_display', {id: show.id}) }}">{{ show.name }}</a></h5>
                     </div>

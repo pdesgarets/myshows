@@ -24,7 +24,15 @@ class SearchController extends Controller
         $query = $request->get('q');
         $shows = $this->get('myshows.fetcher.shows')->getShows($query);
 
+        $myShows = $this->getUser()->getShows();
+        $favoriteIds = array();
+
+        foreach ($myShows as $show){
+            $favoriteIds[] = $show->getId();
+        }
+
         return array(
+            'favShowsId' => $favoriteIds,
             'shows' => $shows,
             'query' => $query);
     }
