@@ -57,6 +57,10 @@
         ],
         "post-update-cmd": [
             "@symfony-scripts"
+        ],
+        "compile": [
+            "php bin/console assetic:dump --env=prod",
+            "php bin/console doctrine:schema:update --force"
         ]
     },
     "config": {
@@ -72,7 +76,12 @@
         "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yml",
+            "env-map": {
+                "database_url": "DATABASE_URL",
+                "captcha_id": "CAPTCHA_ID",
+                "captcha_secret": "CAPTCHA_SECRET"
+            }
         }
     }
 }
