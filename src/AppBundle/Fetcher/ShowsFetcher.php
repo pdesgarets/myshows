@@ -51,8 +51,8 @@ class ShowsFetcher
     }
 
     /**
-     * Used to retrieve a unique show
-     * @param $id
+     * Retrieve a unique show
+     * @param int $id
      * @return TVShow
      */
     public function getShow($id)
@@ -75,9 +75,20 @@ class ShowsFetcher
         return new TVShow($objectShow->id, $objectShow->name, strip_tags($objectShow->summary), $objectShow->image ? $objectShow->image->original : $this->placeholderUrl);
     }
 
-    public function getNextEpisodes($id)
+    /**
+     * Retrieve Episodes of a given show
+     * @param int $id Id of the TV Show
+     * @return mixed
+     */
+    public function getEpisodes($id)
     {
-        return $this->RESTAPICaller->makeGetRequest('/shows/' . $id . '/episodes');
+        try {
+            $episodes = $this->RESTAPICaller->makeGetRequest('/shows/' . $id . '/episodes');
+        } catch (ClientException $e) {
+            return null;
+        }
+
+        return $episodes;
     }
 
 }

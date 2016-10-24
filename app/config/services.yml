@@ -23,3 +23,7 @@ services:
     myshows.captcha_validator:
         class: AppBundle\Form\CaptchaValidator
         arguments: ["@session", "%captcha_secret%"]
+    twig.extension.date:
+        class: Twig_Extensions_Extension_Date
+        tags:
+            - { name: twig.extension }
