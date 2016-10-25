@@ -8,10 +8,7 @@ class TVShowControllerTest extends WebTestCase
 {
     public function setUp()
     {
-        try {
-            $this->loadFixtureFiles(array('@AppBundle/DataFixtures/ORM/users.yml'));
-        } catch (\Exception $e) {
-        }
+        $this->loadFixtureFiles(array('@AppBundle/DataFixtures/ORM/users.yml'));
     }
 
     public function testDisplay()
