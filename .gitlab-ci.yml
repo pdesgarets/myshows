@@ -5,6 +5,8 @@ test:
   variables:
     SYMFONY_ENV: test
   before_script:
+    - apt-get update -q
+    - apt-get install -y -q php5-sqlite
     - export COMPOSER_CACHE_DIR=/cache/composer
     - php composer.phar install --no-interaction --no-progress --prefer-dist
   script:
