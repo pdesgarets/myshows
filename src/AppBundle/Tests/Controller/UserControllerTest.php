@@ -25,8 +25,7 @@ class UserControllerTest extends WebTestCase
             'user[email]'  => 'john@cagnol.com',
             'user[username]'  => 'johnc',
             'user[plainPassword][first]'  => 'password',
-            'user[plainPassword][second]' => 'password',
-            // ... other fields to fill
+            'user[plainPassword][second]' => 'password'
         ));
         $form['user[roles]'][0]->tick();
 
@@ -40,14 +39,13 @@ class UserControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'user[username]'  => 'johnk',
-            // ... other fields to fill
+            'user[username]'  => 'johnk'
         ));
 
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-        // Check the element contains an attribute with value equals "Foo"
+        // Check the element contains an attribute with value equals "johnk"
         $this->assertGreaterThan(0, $crawler->filter('[value="johnk"]')->count(), 'Missing element [value="johnk"]');
 
         // Delete the entity
