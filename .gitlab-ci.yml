@@ -1,5 +1,7 @@
 test:
   image: mroca/symfony-test
+  tags:
+    - all
   variables:
     SYMFONY_ENV: test
   before_script:
@@ -10,7 +12,9 @@ test:
 
 deploy:
   type: deploy
-  image: ruby
+  tags:
+    - all
+  image: ruby:latest
   script:
     - gem install dpl
     - dpl --provider=heroku --app=ecpshows --api-key=$API_KEY
