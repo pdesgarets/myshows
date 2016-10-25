@@ -1,0 +1,11 @@
+test:
+  image: mroca/symfony-test
+  before_script:
+    - export COMPOSER_CACHE_DIR=/cache/composer
+    - composer install --no-interaction
+  script:
+    - vendor/bin/phpunit -c .
+
+deploy:
+  script:
+    - dpl --provider=heroku --app=ecpshows --api-key=$API_KEY
