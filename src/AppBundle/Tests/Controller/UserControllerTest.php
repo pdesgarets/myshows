@@ -10,12 +10,15 @@ class UserControllerTest extends WebTestCase
     public function testCompleteScenario()
     {
         /*// Create a new client to browse the application
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'god',
+            'PHP_AUTH_PW' => 'password'
+        ));
 
         // Create a new entry in the database
         $crawler = $client->request('GET', '/user/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /user/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $client->click($crawler->selectLink('Create a new user')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
