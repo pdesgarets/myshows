@@ -1,11 +1,16 @@
 test:
   image: mroca/symfony-test
+  variables:
+    SYMFONY_ENV: test
   before_script:
     - export COMPOSER_CACHE_DIR=/cache/composer
-    - composer install --no-interaction
+    - php composer.phar install --no-interaction --no-progress --prefer-dist
   script:
     - vendor/bin/phpunit -c .
 
 deploy:
+  type: deploy
+  image: ruby
   script:
+    - gem install dpl
     - dpl --provider=heroku --app=ecpshows --api-key=$API_KEY
