@@ -19,3 +19,12 @@ security:
     firewalls:
         main:
             http_basic: ~
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: "%kernel.logs_dir%/db.db3"
+        memory: false
+
+liip_functional_test:
+    cache_sqlite_db: true

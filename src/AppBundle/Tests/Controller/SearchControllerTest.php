@@ -2,10 +2,15 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class SearchControllerTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $this->loadFixtureFiles(array('@AppBundle/DataFixtures/ORM/users.yml'));
+    }
+
     public function testResults()
     {
         $client = static::createClient(array(), array(
