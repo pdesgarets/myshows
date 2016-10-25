@@ -2,10 +2,15 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class TVShowControllerTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $this->loadFixtureFiles(array('@AppBundle/DataFixtures/ORM/users.yml'));
+    }
+
     public function testDisplay()
     {
         $client = static::createClient(array(), array(
