@@ -17,7 +17,10 @@ class CaptchaValidator {
 
     public function validate($gRecaptchaResponse)
     {
+        $previousErrorReporting = error_reporting();
+        error_reporting(E_ERROR);
         $response = $this->recaptcha->verify($gRecaptchaResponse);
+        error_reporting($previousErrorReporting);
         $messages = array(
             'missing-input-secret' => 'The secret parameter is missing',
             'invalid-input-secret' => 'The secret parameter is invalid or malformed',

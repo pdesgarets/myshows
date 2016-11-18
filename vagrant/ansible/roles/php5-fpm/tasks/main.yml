@@ -1,7 +1,7 @@
 ---
 - name: Install PHP5-FPM
   become: true
-  apt:  package=php5-fpm state=latest
+  apt:  package=php5.6-fpm state=latest
 
 - name: set Env variables
   become: true

@@ -1,12 +1,17 @@
-Empty project 
-=============
+ECP Shows
+=========
 
-1 - Fork this 
 
-2 - php composer.phar install
+Install Vagrant, Ansible, Virtualbox.
 
-3 - php bin/console doctrine:database:create
+`cd vagrant && vagrant up` 
 
-4 - php bin/console doctrine:schema:update --force
+`vagrant ssh`
 
-5 - Profit. 
+`cd /var/www && sudo -u www-data -H php composer.phar install`
+
+Leave the default parameters for the parameters.yml, except for captcha_id and captcha_secret, which you should get from http://google.com/recaptcha.
+
+`sudo -u www-data -H php bin/console hautelook:fixtures:load -n` to add some users
+
+Now you can go to http://localhost:8090 and login using `user_1` and `password` or `god` and `password`.

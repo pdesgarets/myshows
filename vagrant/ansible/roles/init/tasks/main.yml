@@ -11,6 +11,9 @@
       - wget
       - build-essential
       - python-software-properties
+      - pkg-config
+      - libssl-dev
+      - libsslcommon2-dev
 
   - name: Add ppa repository
     become: true

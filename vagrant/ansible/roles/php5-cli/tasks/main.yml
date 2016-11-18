@@ -1,4 +1,7 @@
 ---
 - name: Install PHP5-CLI
   become: true
-  apt:  package=php5-cli state=latest
+  apt:  package=php5.6-cli state=latest
+
+- name: configuration | update alternatives
+  alternatives: name=php path="/usr/bin/php5.6"
