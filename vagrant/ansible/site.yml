@@ -9,18 +9,20 @@
     php_packages:
       - { name: dev, package: php5.6-dev }
       - { name: pear, package: php-pear }
-      - { name: xdebug, package: php5-xdebug }
       - { name: curl, package: php5.6-curl }
       - { name: mcrypt, package: php5.6-mcrypt }
       - { name: mysql, package: php5.6-mysql }
       - { name: apc, package: php-apc }
       - { name: memcached, package: php5-memcached }
       - { name: sqlite, package: php5.6-sqlite3 }
+      - { name: xml, package: php5.6-xml }
       - { name: gd, package: php5.6-gd }
+      - { name: zip, package: php5.6-zip }
     php_extensions:
       - { name: "jsmin", package: "pecl.php.net/jsmin-beta" }
       - { name: "mongodb", package: "pecl.php.net/mongodb" }
       - { name: "xhprof", package: "pecl.php.net/xhprof-beta" }
+      - { name: xdebug, package: xdebug }
     php_env:
       - { key: "SYMFONY__VAGRANT", value: "true"}
     bash_env:

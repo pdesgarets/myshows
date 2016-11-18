@@ -5,15 +5,21 @@
 
 - name: set Env variables
   become: true
-  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf line="env[{{ item.key }}] = {{ item.value }}"
+  lineinfile: dest=/etc/php/5.6/fpm/pool.d/www.conf line="env[{{ item.key }}] = {{ item.value }}"
   with_items: "{{ php_env }}"
 
-- name: Change php-fpm user
+- name: Change php-fpm process owner
   become: true
-  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^user =' line="user = {{ ansible_ssh_user }}"
-  notify: restart nginx
+  lineinfile: dest=/etc/php/5.6/fpm/pool.d/www.conf regexp='^{{ item }} =' line="{{ item }} = {{ ansible_ssh_user }}"
+  notify: restart php5-fpm
+  with_items:
+    - user
+    - group
 
-- name: Change php-fpm group
+- name: Change php-fpm lock file owner
   become: true
-  lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^group =' line="group = {{ ansible_ssh_user }}"
-  notify: restart nginx
+  lineinfile: dest=/etc/php/5.6/fpm/pool.d/www.conf regexp='^listen.{{ item }} =' line="listen.{{ item }} = {{ ansible_ssh_user }}"
+  notify: restart php5-fpm
+  with_items:
+    - owner
+    - group

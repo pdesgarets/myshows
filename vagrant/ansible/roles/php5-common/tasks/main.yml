@@ -10,10 +10,6 @@
   with_items: "{{ php_packages }}"
   notify: restart php5-fpm
 
-- name: Disable xdebug for cli for perf
-  become: true
-  file: path=/etc/php/5.6/cli/conf.d/20-xdebug.ini state=absent
-
 - name: Install PHP extensions
   become: true
   shell: echo "\n" | /usr/bin/pecl install {{ item.package }} creates=/usr/lib/php/20131226/{{ item.name }}.so
@@ -23,20 +19,26 @@
   become: true
   template: src=extension.tpl dest=/etc/php/5.6/mods-available/{{ item.name }}.ini
   with_items: "{{ php_extensions }}"
+  when: item != 'xdebug'
 
 - name: Config xdebug
   become: true
-  when: xdebug_key is defined
+  when: xdebug_key|default(None) != None
   blockinfile:
     dest: /etc/php/5.6/mods-available/xdebug.ini
     create: yes
     block: |
+      zend_extension="/usr/lib/php/20131226/xdebug.so"
       xdebug.remote_enable=true
       xdebug.remote_connect_back=true
       xdebug.idekey={{ xdebug_key }}
-    
+
 - name: Enable PHP extensions
   become: true
   command: /usr/sbin/phpenmod {{ item.name }} creates=/etc/php/5.6/cli/conf.d/20-{{ item.name }}.ini
   with_items: "{{ php_extensions }}"
   notify: restart php5-fpm
+
+- name: Disable xdebug for cli for perf
+  become: true
+  file: path=/etc/php/5.6/cli/conf.d/20-xdebug.ini state=absent
