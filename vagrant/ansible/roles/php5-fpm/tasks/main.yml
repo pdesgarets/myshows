@@ -23,3 +23,7 @@
   with_items:
     - owner
     - group
+
+- name: symlink /var/www
+  file: src=/vagrant path=/var/www state=link
+  become: true

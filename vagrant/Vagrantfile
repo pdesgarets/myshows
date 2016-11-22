@@ -2,33 +2,66 @@ Vagrant.configure("2") do |config|
     # Configure the box to use
     config.vm.box       = 'precise64'
     config.vm.box_url   = 'http://files.vagrantup.com/precise64.box'
+    config.vm.hostname  = 'myshows.local'
+    if Vagrant::Util::Platform.windows?
+        required_plugins = %w( vagrant-vbguest vagrant-hostmanager vagrant-winnfsd )
+    else
+        required_plugins = %w( vagrant-vbguest vagrant-hostmanager vagrant-bindfs )
+    end
+    required_plugins.each do |plugin|
+        exec "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin || ARGV[0] == 'plugin'
+    end
+
 
     # Configure the network interfaces
     config.vm.network :private_network, type: :dhcp
     config.vm.network :forwarded_port,  guest: 80,    host: 8090
-    config.vm.network :forwarded_port,  guest: 8081,  host: 8091
-    config.vm.network :forwarded_port,  guest: 3306,  host: 3406
-    config.vm.network :forwarded_port,  guest: 27017, host: 27017
 
-    # Configure shared folders
-    config.vm.synced_folder ".",  "/vagrant", id: "vagrant-root", :nfs => true
-    config.vm.synced_folder "..", "/var/www", id: "application",  :nfs => true
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.ip_resolver = proc do |machine|
+        result = ""
+        machine.communicate.execute("/sbin/ifconfig eth1") do |type, data|
+            result << data if type == :stdout
+        end
+        (ip = /inet addr:(\d+\.\d+\.\d+\.\d+)/.match(result)) && ip[1]
+    end
 
     # Configure VirtualBox environment
     config.vm.provider :virtualbox do |v|
-        v.name = (0...8).map { (65 + rand(26)).chr }.join
+        v.name = 'myshows'
         v.customize [ "modifyvm", :id, "--memory", 1024]
     end
 
     # Provision the box
     if Vagrant::Util::Platform.windows?
+        config.vm.network :private_network, ip: "192.168.10.21"
+        config.winnfsd.uid = 1000
+        config.winnfsd.gid = 1000
+        config.vm.synced_folder "..", "/vagrant", type: "nfs"
         config.vm.provision :ansible_local do |ansible|
             ansible.install_mode = :pip
             ansible.version = :latest
             ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
-            ansible.playbook = "ansible/site.yml"
+            ansible.playbook = "/vagrant/vagrant/ansible/site.yml"
         end
     else
+        unless Vagrant.has_plugin?("vagrant-bindfs")
+            raise "Plugin missing. Run : vagrant plugin install vagrant-bindfs"
+        end
+        config.vm.synced_folder ".", "/vagrant", disabled: true
+        config.vm.synced_folder "..", "/tmp-nfs",
+            :type => :nfs,
+            :create => true,
+            :mount_options => ["rw,rsize=32768,wsize=32768,intr,noatime"],
+            :nfs_udp => false,
+            :nfs_version => "3"
+        config.bindfs.bind_folder "/tmp-nfs", "/vagrant",
+            :perms => "u=rwD:g=rD:o=rD",
+            :user => :vagrant,
+            :group => :vagrant,
+            "create-as-user" => true
         config.vm.provision :ansible do |ansible|
             ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
             ansible.playbook = "ansible/site.yml"
