@@ -28,7 +28,6 @@
     dest: /etc/php/5.6/mods-available/xdebug.ini
     create: yes
     block: |
-      zend_extension="/usr/lib/php/20131226/xdebug.so"
       xdebug.remote_enable=true
       xdebug.remote_connect_back=true
       xdebug.idekey={{ xdebug_key }}
