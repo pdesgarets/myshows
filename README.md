@@ -9,13 +9,15 @@ Install [Vagrant](https://www.vagrantup.com/downloads.html), [Virtualbox](https:
 
 In the app folder:
 
-`cd vagrant && vagrant up` 
+`cd vagrant && vagrant up`
 
 You may have to run vagrant up multiple times, if it detected missing plugins and installed them. If you had an error with the installation of plugins, try using `vagrant plugin install vagrant-bindfs --plugin-version '0.4.11'`, then run `vagrant up` again.
 
 `vagrant ssh`
 
 `cd /var/www && php composer.phar install`
+
+If /var/www appears to not exist, exit the ssh prompt with `exit` and run `vagrant reload` then `vagrant ssh` again.
 
 Leave the default parameters for the parameters.yml, except for captcha_id and captcha_secret, which you should get from http://google.com/recaptcha if you want to be able to register.
 
