@@ -8,10 +8,15 @@ Vagrant.configure("2") do |config|
     else
         required_plugins = %w( vagrant-vbguest vagrant-hostmanager vagrant-bindfs )
     end
-    required_plugins.each do |plugin|
-        exec "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin || ARGV[0] == 'plugin'
+    unless ARGV.include?('plugin')
+        required_plugins.each do |plugin|
+            unless Vagrant.has_plugin? plugin
+                puts plugin
+                system("vagrant plugin install #{plugin}") || exit!
+                exit system('vagrant', *ARGV)
+            end
+        end
     end
-
 
     # Configure the network interfaces
     config.vm.network :private_network, type: :dhcp
@@ -47,7 +52,7 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "/vagrant/vagrant/ansible/site.yml"
         end
     else
-        unless Vagrant.has_plugin?("vagrant-bindfs")
+        unless Vagrant.has_plugin?("vagrant-bindfs") || ARGV.include?('plugin')
             raise "Plugin missing. Run : vagrant plugin install vagrant-bindfs"
         end
         config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -59,8 +64,8 @@ Vagrant.configure("2") do |config|
             :nfs_version => "3"
         config.bindfs.bind_folder "/tmp-nfs", "/vagrant",
             :perms => "u=rwD:g=rD:o=rD",
-            :user => :vagrant,
-            :group => :vagrant,
+            :user => 'vagrant',
+            :group => 'vagrant',
             "create-as-user" => true
         config.vm.provision :ansible do |ansible|
             ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
